@@ -1,161 +1,171 @@
 function Projects() {
   return (
-    <>
-      {/* Top Section */}
-      <div className="topbar">
+    <div className="projects-page">
+
+      {/* ===== HEADER ===== */}
+      <div className="projects-header">
+
         <div>
-          <h1>Welcome back,</h1>
-          <h2 className="student-name">Alex Johnson 👋</h2>
-          <p>3rd Year · Computer Science</p>
+          <h1>Welcome back, Alex 👋</h1>
+          <p className="subtitle">
+            3rd Year · Computer Science
+          </p>
         </div>
 
         <button className="new-project-btn">
           + New Project
         </button>
+
       </div>
 
-      <div className="content-area">
+      {/* ===== STATS ===== */}
+      <div className="stats-row">
 
-        {/* Stats Row */}
-        <div className="stats-row">
-          <div className="stat-card">
-            <h2>3</h2>
-            <p>Active Projects</p>
-          </div>
-          <div className="stat-card">
-            <h2>64%</h2>
-            <p>Avg. Progress</p>
-          </div>
-          <div className="stat-card">
-            <h2>18</h2>
-            <p>Submissions</p>
-          </div>
-          <div className="stat-card">
-            <h2>3</h2>
-            <p>Badges Earned</p>
-          </div>
+        <div className="stat-card-modern">
+          <p>Active Projects</p>
+          <h2>3</h2>
         </div>
 
-        {/* Main Layout */}
-        <div className="projects-layout">
+        <div className="stat-card-modern">
+          <p>Average Progress</p>
+          <h2>64%</h2>
+        </div>
 
-          {/* LEFT SIDE PROJECTS */}
-          <div>
+        <div className="stat-card-modern">
+          <p>Total Submissions</p>
+          <h2>18</h2>
+        </div>
 
-            <h2 className="section-title">Recent Projects</h2>
+        <div className="stat-card-modern">
+          <p>Badges Earned</p>
+          <h2>3</h2>
+        </div>
 
-            {/* Project 1 */}
-            <div className="project-card">
-              <div className="project-header">
-                <h3>E-Commerce Platform with AI Recommendations</h3>
-                <span className="status-badge active">Active</span>
-              </div>
+      </div>
 
-              <p className="project-desc">
-                A full-stack e-commerce platform featuring AI-powered product recommendations and real-time inventory.
-              </p>
+      {/* ===== MAIN GRID ===== */}
+      <div className="projects-grid">
 
-              <div className="project-tags">
-                <span>React</span>
-                <span>Node.js</span>
-                <span>AI/ML</span>
-                <span>PostgreSQL</span>
-              </div>
+        {/* LEFT SIDE */}
+        <div className="projects-left">
 
-              <div className="progress-section">
-                <div className="progress-bar">
-                  <div className="progress-fill" style={{ width: "78%" }}></div>
-                </div>
-                <span className="progress-percent">78%</span>
-              </div>
+          <h2 className="section-title">My Projects</h2>
 
-              <p className="milestone-text">3/6 milestones</p>
-              <p className="due-date">Due Mar 15, 2026</p>
+          {/* Project Card */}
+          <div className="project-card-modern">
+            <div className="project-top">
+              <h3>E-Commerce Platform</h3>
+              <span className="status active">Active</span>
             </div>
 
+            <p className="project-desc">
+              Full-stack platform with AI recommendations and real-time inventory.
+            </p>
 
-            {/* Project 2 */}
-            <div className="project-card">
-              <div className="project-header">
-                <h3>Smart Attendance System</h3>
-                <span className="status-badge active">Active</span>
-              </div>
-
-              <p className="project-desc">
-                Facial recognition based attendance tracking system integrated with cloud database.
-              </p>
-
-              <div className="project-tags">
-                <span>Python</span>
-                <span>OpenCV</span>
-                <span>Firebase</span>
-              </div>
-
-              <div className="progress-section">
-                <div className="progress-bar">
-                  <div className="progress-fill" style={{ width: "55%" }}></div>
-                </div>
-                <span className="progress-percent">55%</span>
-              </div>
-
-              <p className="milestone-text">2/5 milestones</p>
-              <p className="due-date">Due Apr 10, 2026</p>
+            <div className="tags">
+              <span>React</span>
+              <span>Node</span>
+              <span>AI</span>
+              <span>PostgreSQL</span>
             </div>
 
-
-            {/* Project 3 */}
-            <div className="project-card">
-              <div className="project-header">
-                <h3>Mental Health Tracker App</h3>
-                <span className="status-badge draft">Draft</span>
+            <div className="progress-wrapper">
+              <div className="progress-bar-modern">
+                <div className="progress-fill-modern" style={{ width: "78%" }}></div>
               </div>
-
-              <p className="project-desc">
-                Mobile-first wellness app with mood tracking, journaling, and AI therapy chatbot.
-              </p>
-
-              <div className="project-tags">
-                <span>React Native</span>
-                <span>AI Chatbot</span>
-                <span>MongoDB</span>
-              </div>
-
-              <div className="progress-section">
-                <div className="progress-bar">
-                  <div className="progress-fill" style={{ width: "30%" }}></div>
-                </div>
-                <span className="progress-percent">30%</span>
-              </div>
-
-              <p className="milestone-text">1/4 milestones</p>
-              <p className="due-date">Due May 05, 2026</p>
+              <span className="progress-text">78% Complete</span>
             </div>
 
+            <div className="project-footer">
+              <span>3/6 milestones</span>
+              <span>Due Mar 15</span>
+            </div>
           </div>
 
-          {/* RIGHT SIDE */}
-          <div>
-
-            <div className="side-card">
-              <h3>Upcoming Milestones</h3>
-              <p>Frontend Development — Now</p>
-              <p>Testing & QA — Mar 21</p>
-              <p>Final Submission — Apr 4</p>
+          <div className="project-card-modern">
+            <div className="project-top">
+              <h3>Smart Attendance System</h3>
+              <span className="status active">Active</span>
             </div>
 
-            <div className="side-card">
-              <h3>My Badges</h3>
-              <div className="badge-box">First Project</div>
-              <div className="badge-box">Fast Learner</div>
-              <div className="badge-box">On Time</div>
+            <p className="project-desc">
+              Facial recognition attendance system with cloud database.
+            </p>
+
+            <div className="tags">
+              <span>Python</span>
+              <span>OpenCV</span>
+              <span>Firebase</span>
             </div>
 
+            <div className="progress-wrapper">
+              <div className="progress-bar-modern">
+                <div className="progress-fill-modern" style={{ width: "55%" }}></div>
+              </div>
+              <span className="progress-text">55% Complete</span>
+            </div>
+
+            <div className="project-footer">
+              <span>2/5 milestones</span>
+              <span>Due Apr 10</span>
+            </div>
+          </div>
+
+          <div className="project-card-modern">
+            <div className="project-top">
+              <h3>Mental Health Tracker</h3>
+              <span className="status draft">Draft</span>
+            </div>
+
+            <p className="project-desc">
+              Wellness app with mood tracking and AI chatbot.
+            </p>
+
+            <div className="tags">
+              <span>React Native</span>
+              <span>MongoDB</span>
+              <span>AI</span>
+            </div>
+
+            <div className="progress-wrapper">
+              <div className="progress-bar-modern">
+                <div className="progress-fill-modern" style={{ width: "30%" }}></div>
+              </div>
+              <span className="progress-text">30% Complete</span>
+            </div>
+
+            <div className="project-footer">
+              <span>1/4 milestones</span>
+              <span>Due May 05</span>
+            </div>
           </div>
 
         </div>
 
+        {/* RIGHT SIDE */}
+        <div className="projects-right">
+
+          <div className="side-card-modern">
+            <h3>Upcoming Milestones</h3>
+            <ul>
+              <li>Frontend Development — Now</li>
+              <li>Testing & QA — Mar 21</li>
+              <li>Final Submission — Apr 04</li>
+            </ul>
+          </div>
+
+          <div className="side-card-modern">
+            <h3>Achievements</h3>
+            <div className="badge-modern">🏆 First Project</div>
+            <div className="badge-modern">⚡ Fast Learner</div>
+            <div className="badge-modern">✅ On Time</div>
+          </div>
+
+        </div>
+
       </div>
-    </>
+
+    </div>
   );
 }
 

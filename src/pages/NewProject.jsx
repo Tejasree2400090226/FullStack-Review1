@@ -1,94 +1,131 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function NewProject() {
-  const [milestones, setMilestones] = useState([
-    { title: "", date: "" }
-  ]);
 
-  const addMilestone = () => {
-    setMilestones([...milestones, { title: "", date: "" }]);
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    tech: "",
+    deadline: "",
+    milestone1: "",
+    milestone2: "",
+    milestone3: "",
+  });
+
+  const [success, setSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setSuccess(true);
+
+    setTimeout(() => {
+      navigate("/projects");
+    }, 2000);
   };
 
   return (
-    <>
-      <div className="topbar">
-        <div>
-          <h1>New Project</h1>
-          <p>Create and manage your academic project</p>
+    <div className="new-project-page">
+
+      <h1>Create New Project</h1>
+
+      {success && (
+        <div className="success-message">
+          🎉 Project Successfully Submitted!
         </div>
-      </div>
+      )}
 
-      <div className="content-area">
-        <div className="form-card">
+      <form className="project-form" onSubmit={handleSubmit}>
 
-          <div className="form-group">
-            <label>Project Title *</label>
-            <input type="text" placeholder="AI Powered Plant Detection" />
-          </div>
-
-          <div className="form-group">
-            <label>Description *</label>
-            <textarea placeholder="Describe your project..." />
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label>Category *</label>
-              <select>
-                <option>Web Development</option>
-                <option>AI / ML</option>
-                <option>Mobile App</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Deadline *</label>
-              <input type="date" />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Project GitHub URL</label>
-            <input type="url" placeholder="https://github.com/project" />
-          </div>
-
-          <div className="form-group">
-            <label>Live Project URL</label>
-            <input type="url" placeholder="https://project.com" />
-          </div>
-
-          <div className="form-group">
-            <label>Upload Project Files</label>
-            <input type="file" multiple />
-          </div>
-
-          <h3 className="section-title-form">Milestones</h3>
-
-          {milestones.map((m, index) => (
-            <div key={index} className="form-row">
-              <div className="form-group">
-                <label>Milestone Title</label>
-                <input type="text" placeholder={`Milestone ${index + 1}`} />
-              </div>
-
-              <div className="form-group">
-                <label>Milestone Date</label>
-                <input type="date" />
-              </div>
-            </div>
-          ))}
-
-          <button type="button" className="add-btn" onClick={addMilestone}>
-            + Add Milestone
-          </button>
-
-          <button className="submit-btn">
-            Submit Project
-          </button>
-
+        <div className="form-group">
+          <label>Project Title</label>
+          <input
+            type="text"
+            name="title"
+            required
+            value={formData.title}
+            onChange={handleChange}
+          />
         </div>
-      </div>
-    </>
+
+        <div className="form-group">
+          <label>Description</label>
+          <textarea
+            name="description"
+            required
+            rows="4"
+            value={formData.description}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Technologies (comma separated)</label>
+          <input
+            type="text"
+            name="tech"
+            value={formData.tech}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Final Deadline</label>
+          <input
+            type="date"
+            name="deadline"
+            required
+            value={formData.deadline}
+            onChange={handleChange}
+          />
+        </div>
+
+        <h3>Milestones</h3>
+
+        <div className="form-row">
+          <input
+            type="text"
+            name="milestone1"
+            placeholder="Milestone 1"
+            value={formData.milestone1}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="milestone2"
+            placeholder="Milestone 2"
+            value={formData.milestone2}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="text"
+            name="milestone3"
+            placeholder="Milestone 3"
+            value={formData.milestone3}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button type="submit" className="submit-btn">
+          Submit Project
+        </button>
+
+      </form>
+
+    </div>
   );
 }
 

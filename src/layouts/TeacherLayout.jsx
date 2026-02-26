@@ -1,89 +1,81 @@
-import { Outlet, NavLink } from "react-router-dom";
-import Topbar from "../components/Topbar";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 function TeacherLayout() {
+
+  const navigate = useNavigate();
+
+  // ✅ Get logged-in teacher from localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // ✅ Safe values
+  const teacherName = user?.name
+    ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
+    : "Teacher";
+
+  const teacherEmail = user?.email || "teacher@email.com";
+
+  const handleLogout = () => {
+    localStorage.removeItem("role");
+    localStorage.removeItem("user");
+    navigate("/");
+    window.location.reload(); // ensures clean state reset
+  };
+
   return (
     <div className="layout">
 
-      {/* Sidebar */}
       <aside className="sidebar">
-        
-        <div className="sidebar-header">
-          <div className="logo-box">📘</div>
-          <div>
-            <h3>Teacher Panel</h3>
-            <p>ProjectTrack</p>
+
+        {/* TOP */}
+        <div className="sidebar-top">
+
+          <div className="sidebar-header-modern">
+            <div className="brand-logo">
+              <span className="logo-icon">👨‍🏫</span>
+            </div>
+            <h2 className="brand-name">ProjectTrack</h2>
           </div>
+
+          <ul className="menu-modern">
+            <li><NavLink to="/teacher/overview">Overview</NavLink></li>
+            <li><NavLink to="/teacher/submissions">Submissions</NavLink></li>
+            <li><NavLink to="/teacher/students">Students</NavLink></li>
+            <li><NavLink to="/teacher/progress">Progress</NavLink></li>
+            <li><NavLink to="/teacher/feedback">Feedback</NavLink></li>
+          </ul>
+
         </div>
 
-        <nav>
-          <ul className="menu">
-            <li>
-              <NavLink
-                to="/teacher/overview"
-                className={({ isActive }) =>
-                  isActive ? "menu-link active" : "menu-link"
-                }
-              >
-                📊 Overview
-              </NavLink>
-            </li>
+        {/* BOTTOM */}
+        <div className="sidebar-bottom">
 
-            <li>
-              <NavLink
-                to="/teacher/submissions"
-                className={({ isActive }) =>
-                  isActive ? "menu-link active" : "menu-link"
-                }
-              >
-                📂 Submissions
-              </NavLink>
-            </li>
+          <div className="sidebar-profile">
 
-            <li>
-              <NavLink
-                to="/teacher/students"
-                className={({ isActive }) =>
-                  isActive ? "menu-link active" : "menu-link"
-                }
-              >
-                👩‍🎓 Students
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                to="/teacher/feedback-topics"
-                className={({ isActive }) =>
-                  isActive ? "menu-link active" : "menu-link"
-                }
-              >
-                💬 Feedback Topics
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-
-        {/* Bottom Section */}
-        <div className="sidebar-footer">
-          <div className="teacher-profile">
-            <div className="avatar">T</div>
-            <div>
-              <strong>Ms. Teacher</strong>
-              <p>teacher@email.com</p>
+            {/* ✅ Dynamic Avatar */}
+            <div className="profile-avatar">
+              {teacherName.charAt(0)}
             </div>
+
+            {/* ✅ Dynamic Name + Email */}
+            <div className="profile-info">
+              <p>{teacherName}</p>
+              <span>{teacherEmail}</span>
+            </div>
+
           </div>
+
+          <button className="logout-btn" onClick={handleLogout}>
+            Sign Out
+          </button>
+
         </div>
 
       </aside>
 
-      {/* Main Area */}
-      <div className="main">
-        <Topbar />
-        <div className="content-area">
-          <Outlet />
-        </div>
-      </div>
+      <main className="main">
+        <Outlet />
+      </main>
+
     </div>
   );
 }

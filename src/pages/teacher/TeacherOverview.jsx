@@ -1,66 +1,49 @@
+import { useState } from "react";
+
 function TeacherOverview() {
+
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [milestone, setMilestone] = useState("");
+  const [comment, setComment] = useState("");
+
+  // ✅ Get logged-in teacher
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const teacherName = user?.name || "Admin";
 
   const students = [
     { name: "Ananya Roy", id: "S006", phase: "Frontend Prototype", score: 95, status: "ahead", date: "2026-02-19" },
     { name: "Priya Nair", id: "S002", phase: "Frontend Prototype", score: 91, status: "ahead", date: "2026-02-18" },
     { name: "Sneha Patel", id: "S004", phase: "Literature Review", score: 88, status: "on-track", date: "2026-02-17" },
-    { name: "Arjun Mehta", id: "S001", phase: "System Design", score: 82, status: "in-progress", date: "2026-02-15" },
-    { name: "Vikram Gupta", id: "S005", phase: "System Design", score: 74, status: "in-progress", date: "2026-02-14" },
-    { name: "Rahul Singh", id: "S003", phase: "Problem Statement", score: 67, status: "behind", date: "2026-02-10" },
-    { name: "Karan Joshi", id: "S007", phase: "Problem Statement", score: 58, status: "behind", date: "2026-02-05" },
+    { name: "Arjun Mehta", id: "S001", phase: "System Design", score: 72, status: "in-progress", date: "2026-02-15" },
+    { name: "Rahul Singh", id: "S003", phase: "Problem Statement", score: 58, status: "behind", date: "2026-02-10" },
   ];
+
+  const handleSubmit = () => {
+    if (!milestone || !comment) {
+      alert("Please select milestone and write feedback.");
+      return;
+    }
+
+    alert("Feedback submitted successfully!");
+
+    setMilestone("");
+    setComment("");
+    setSelectedStudent(null);
+  };
 
   return (
     <div className="teacher-overview">
 
       <p className="teacher-welcome-text">Welcome back,</p>
-      <h1 className="teacher-title">Prof. Admin Dashboard</h1>
-      <p className="teacher-subtitle">
-        Here's what's happening across all student projects
-      </p>
 
-      {/* Summary Cards */}
-      <div className="teacher-stats-row">
+      {/* ✅ Dynamic Teacher Name */}
+      <h1 className="teacher-title">
+        Prof. {teacherName} 
+      </h1>
 
-        <div className="teacher-stat-card">
-          <div className="teacher-stat-icon green">👥</div>
-          <div>
-            <h2>47</h2>
-            <p>Total Students</p>
-            <span>+5 this week</span>
-          </div>
-        </div>
+      
 
-        <div className="teacher-stat-card">
-          <div className="teacher-stat-icon orange">📄</div>
-          <div>
-            <h2>12</h2>
-            <p>Pending Reviews</p>
-            <span>4 urgent</span>
-          </div>
-        </div>
-
-        <div className="teacher-stat-card">
-          <div className="teacher-stat-icon green">📈</div>
-          <div>
-            <h2>73%</h2>
-            <p>Avg Progress</p>
-            <span>+8% vs last month</span>
-          </div>
-        </div>
-
-        <div className="teacher-stat-card">
-          <div className="teacher-stat-icon red">⚠</div>
-          <div>
-            <h2>3</h2>
-            <p>Needs Attention</p>
-            <span>Behind schedule</span>
-          </div>
-        </div>
-
-      </div>
-
-      {/* Student Table */}
       <div className="teacher-table-card">
         <h3>Student Overview</h3>
 
@@ -68,10 +51,10 @@ function TeacherOverview() {
           <thead>
             <tr>
               <th>Student</th>
-              <th>Current Phase</th>
+              <th>Phase</th>
               <th>Score</th>
               <th>Status</th>
-              <th>Last Submit</th>
+              <th>Date</th>
               <th></th>
             </tr>
           </thead>
@@ -92,7 +75,10 @@ function TeacherOverview() {
                 </td>
 
                 <td>{student.phase}</td>
-                <td className="teacher-score">{student.score}/100</td>
+
+                <td className="teacher-score">
+                  {student.score}/100
+                </td>
 
                 <td>
                   <span className={`teacher-badge ${student.status}`}>
@@ -103,7 +89,10 @@ function TeacherOverview() {
                 <td>{student.date}</td>
 
                 <td>
-                  <button className="teacher-feedback-btn">
+                  <button
+                    className="teacher-feedback-btn"
+                    onClick={() => setSelectedStudent(student)}
+                  >
                     Feedback
                   </button>
                 </td>
@@ -111,8 +100,63 @@ function TeacherOverview() {
             ))}
           </tbody>
         </table>
-
       </div>
+
+      {/* ================= MODAL ================= */}
+      {selectedStudent && (
+        <div className="modal-overlay">
+
+          <div className="modal-card">
+
+            <h3>Give Feedback</h3>
+            <p className="modal-student">
+              {selectedStudent.name} ({selectedStudent.id})
+            </p>
+
+            <div className="modal-group">
+              <label>Milestone</label>
+              <select
+                value={milestone}
+                onChange={(e) => setMilestone(e.target.value)}
+              >
+                <option value="">Select milestone</option>
+                <option>Problem Statement</option>
+                <option>System Design</option>
+                <option>Frontend Prototype</option>
+                <option>Backend Development</option>
+                <option>Final Submission</option>
+              </select>
+            </div>
+
+            <div className="modal-group">
+              <label>Feedback</label>
+              <textarea
+                rows="4"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Write detailed feedback..."
+              />
+            </div>
+
+            <div className="modal-buttons">
+              <button
+                className="cancel-btn"
+                onClick={() => setSelectedStudent(null)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="submit-btn-modal"
+                onClick={handleSubmit}
+              >
+                Submit
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </div>
   );

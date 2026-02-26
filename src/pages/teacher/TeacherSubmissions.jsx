@@ -1,4 +1,11 @@
+import { useState } from "react";
+
 function TeacherSubmissions() {
+
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [milestone, setMilestone] = useState("");
+  const [comment, setComment] = useState("");
+
   const submissions = [
     {
       name: "Arjun Mehta",
@@ -8,7 +15,6 @@ function TeacherSubmissions() {
       phase: "System Design",
       status: "In Progress",
       due: "2026-02-15",
-      last: "02-15",
     },
     {
       name: "Priya Nair",
@@ -18,7 +24,6 @@ function TeacherSubmissions() {
       phase: "Frontend Prototype",
       status: "Ahead",
       due: "2026-02-18",
-      last: "02-18",
     },
     {
       name: "Rahul Singh",
@@ -28,17 +33,6 @@ function TeacherSubmissions() {
       phase: "Problem Statement",
       status: "Behind",
       due: "2026-02-10",
-      last: "02-10",
-    },
-    {
-      name: "Sneha Patel",
-      id: "S004",
-      email: "sneha@demo.com",
-      score: 88,
-      phase: "Literature Review",
-      status: "On Track",
-      due: "2026-02-17",
-      last: "02-17",
     },
   ];
 
@@ -47,6 +41,13 @@ function TeacherSubmissions() {
     if (status === "Behind") return "behind";
     if (status === "On Track") return "on-track";
     return "in-progress";
+  };
+
+  const handleSubmit = () => {
+    alert("Feedback submitted successfully!");
+    setMilestone("");
+    setComment("");
+    setSelectedStudent(null);
   };
 
   return (
@@ -93,7 +94,10 @@ function TeacherSubmissions() {
             </div>
 
             <div className="submission-right">
-              <button className="feedback-btn">
+              <button
+                className="feedback-btn"
+                onClick={() => setSelectedStudent(student)}
+              >
                 Give Feedback
               </button>
             </div>
@@ -109,6 +113,63 @@ function TeacherSubmissions() {
         ))}
 
       </div>
+
+      {/* MODAL POPUP */}
+      {selectedStudent && (
+        <div className="modal-overlay">
+
+          <div className="modal-card">
+
+            <h3>Give Feedback</h3>
+            <p className="modal-student">
+              {selectedStudent.name} ({selectedStudent.id})
+            </p>
+
+            <div className="modal-group">
+              <label>Milestone</label>
+              <select
+                value={milestone}
+                onChange={(e) => setMilestone(e.target.value)}
+              >
+                <option value="">Select milestone</option>
+                <option>Problem Statement</option>
+                <option>System Design</option>
+                <option>Frontend Prototype</option>
+                <option>Backend Development</option>
+                <option>Final Submission</option>
+              </select>
+            </div>
+
+            <div className="modal-group">
+              <label>Feedback</label>
+              <textarea
+                rows="4"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Write detailed feedback..."
+              />
+            </div>
+
+            <div className="modal-buttons">
+              <button
+                className="cancel-btn"
+                onClick={() => setSelectedStudent(null)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="submit-btn-modal"
+                onClick={handleSubmit}
+              >
+                Submit
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      )}
 
     </div>
   );

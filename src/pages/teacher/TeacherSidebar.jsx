@@ -1,19 +1,57 @@
-export default function TeacherSidebar() {
-  return (
-    <div className="w-64 bg-blue-900 text-white min-h-screen p-6">
-      <h2 className="text-xl font-bold mb-8">
-        EduTrack
-        <span className="block text-sm font-light">Teacher Portal</span>
-      </h2>
+import { NavLink, Outlet } from "react-router-dom";
 
-      <ul className="space-y-4">
-        <li className="bg-teal-500 px-4 py-2 rounded-lg">Dashboard</li>
-        <li className="hover:bg-blue-800 px-4 py-2 rounded-lg cursor-pointer">My Classes</li>
-        <li className="hover:bg-blue-800 px-4 py-2 rounded-lg cursor-pointer">Assignments</li>
-        <li className="hover:bg-blue-800 px-4 py-2 rounded-lg cursor-pointer">Submissions</li>
-        <li className="hover:bg-blue-800 px-4 py-2 rounded-lg cursor-pointer">Performance</li>
-        <li className="hover:bg-blue-800 px-4 py-2 rounded-lg cursor-pointer">Settings</li>
-      </ul>
+function TeacherLayout() {
+  return (
+    <div className="layout">
+
+      <aside className="sidebar">
+
+        <div className="sidebar-header-modern">
+          <div className="logo-modern">PT</div>
+          <div>
+            <h2>Teacher Panel</h2>
+            <p>ProjectTrack</p>
+          </div>
+        </div>
+
+        <ul className="menu-modern">
+          <li>
+            <NavLink to="/teacher/overview">Overview</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/teacher/submissions">Submissions</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/teacher/students">Students</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/teacher/progress">Progress</NavLink> {/* ✅ NEW */}
+          </li>
+
+          <li>
+            <NavLink to="/teacher/feedback-topics">Feedback </NavLink>
+          </li>
+        </ul>
+
+        <div className="sidebar-profile">
+          <div className="profile-avatar">T</div>
+          <div className="profile-info">
+            <p>Ms. Teacher</p>
+            <span>teacher@email.com</span>
+          </div>
+        </div>
+
+      </aside>
+
+      <main className="main">
+        <Outlet />
+      </main>
+
     </div>
   );
 }
+
+export default TeacherLayout;

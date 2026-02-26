@@ -13,10 +13,11 @@ function Dashboard() {
       <div className="dashboard-header">
         <div>
           <h1>My Dashboard</h1>
-          <p>FSAD-PS39 — Online Platform for Student Projects</p>
+          
         </div>
         <div className="profile-right">
-          <span>William Hook</span>
+          
+          <h4>{user?.name}</h4>
           🔔
         </div>
       </div>
@@ -72,5 +73,6 @@ function Dashboard() {
     </div>
   );
 }
+const user = JSON.parse(localStorage.getItem("user"));
 
 export default Dashboard;
